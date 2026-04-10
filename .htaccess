@@ -1,0 +1,16 @@
+Options -MultiViews
+RewriteEngine On
+
+# 1. Se for arquivo ou diretório físico, servir diretamente (CSS, JS, imagens, PHP avulso)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 2. Pasta install — acesso direto sempre
+RewriteRule ^install(/.*)?$ install/index.php [QSA,L]
+
+# 3. Pasta admin — tem seu próprio roteamento
+RewriteRule ^admin(/.*)?$ admin/index.php [QSA,L]
+
+# 4. Tudo mais vai para o front controller
+RewriteRule ^ index.php [QSA,L]
